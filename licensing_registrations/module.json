@@ -1,0 +1,8 @@
+{
+  "id": "licensing_registrations",
+  "title": "Licensing Registrations",
+  "app_id": "government_regulatory_ecosystem",
+  "type": "module",
+  "status": "draft",
+  "supports_submodules": true
+}

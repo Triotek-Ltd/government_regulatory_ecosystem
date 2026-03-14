@@ -1,0 +1,27 @@
+{
+  "doc_key": "registration_application",
+  "doc_title": "Registration Application",
+  "doc_kind": "transaction",
+  "status": "draft",
+  "module_id": "licensing_registrations",
+  "submodule_id": "license_registry",
+  "app_id": "government_regulatory_ecosystem",
+  "base_action_profile": "base_record_actions",
+  "doc_archetype": "transaction",
+  "classification": {
+    "archetype": "transaction",
+    "bundle": "ecosystem"
+  },
+  "planning_source": {
+    "type": "reference_doc_generation_manifest",
+    "bundle": "ecosystem",
+    "app": "government_regulatory_ecosystem",
+    "module": "licensing_registrations",
+    "submodule": "license_registry",
+    "reference_doc_id": "registration_application",
+    "evidence_gaps": [
+      "document bundle",
+      "fee/payment linkage"
+    ]
+  }
+}

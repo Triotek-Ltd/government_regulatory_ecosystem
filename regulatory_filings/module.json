@@ -1,0 +1,8 @@
+{
+  "id": "regulatory_filings",
+  "title": "Regulatory Filings",
+  "app_id": "government_regulatory_ecosystem",
+  "type": "module",
+  "status": "draft",
+  "supports_submodules": true
+}

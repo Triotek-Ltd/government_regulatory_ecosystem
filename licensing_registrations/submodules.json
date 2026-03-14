@@ -1,0 +1,6 @@
+{
+  "submodules": [
+    "license_registry",
+    "renewal_workflows"
+  ]
+}

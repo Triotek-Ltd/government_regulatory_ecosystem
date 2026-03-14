@@ -1,0 +1,27 @@
+{
+  "doc_key": "report_submission",
+  "doc_title": "Report Submission",
+  "doc_kind": "transaction",
+  "status": "draft",
+  "module_id": "government_reporting",
+  "submodule_id": "reporting_submissions",
+  "app_id": "government_regulatory_ecosystem",
+  "base_action_profile": "base_record_actions",
+  "doc_archetype": "transaction",
+  "classification": {
+    "archetype": "transaction",
+    "bundle": "ecosystem"
+  },
+  "planning_source": {
+    "type": "reference_doc_generation_manifest",
+    "bundle": "ecosystem",
+    "app": "government_regulatory_ecosystem",
+    "module": "government_reporting",
+    "submodule": "reporting_submissions",
+    "reference_doc_id": "report_submission",
+    "evidence_gaps": [
+      "submission-payload schema",
+      "resubmission rules"
+    ]
+  }
+}

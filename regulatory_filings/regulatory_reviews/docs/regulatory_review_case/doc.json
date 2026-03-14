@@ -1,0 +1,27 @@
+{
+  "doc_key": "regulatory_review_case",
+  "doc_title": "Regulatory Review Case",
+  "doc_kind": "workflow_case",
+  "status": "draft",
+  "module_id": "regulatory_filings",
+  "submodule_id": "regulatory_reviews",
+  "app_id": "government_regulatory_ecosystem",
+  "base_action_profile": "base_record_actions",
+  "doc_archetype": "workflow_case",
+  "classification": {
+    "archetype": "workflow_case",
+    "bundle": "ecosystem"
+  },
+  "planning_source": {
+    "type": "reference_doc_generation_manifest",
+    "bundle": "ecosystem",
+    "app": "government_regulatory_ecosystem",
+    "module": "regulatory_filings",
+    "submodule": "regulatory_reviews",
+    "reference_doc_id": "regulatory_review_case",
+    "evidence_gaps": [
+      "remediation taxonomy",
+      "escalation rules"
+    ]
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "doc_key": "government_report",
+  "doc_title": "Government Report",
+  "doc_kind": "transaction",
+  "status": "draft",
+  "module_id": "government_reporting",
+  "submodule_id": "reporting_requirements",
+  "app_id": "government_regulatory_ecosystem",
+  "base_action_profile": "base_record_actions",
+  "doc_archetype": "transaction",
+  "classification": {
+    "archetype": "transaction",
+    "bundle": "ecosystem"
+  },
+  "planning_source": {
+    "type": "reference_doc_generation_manifest",
+    "bundle": "ecosystem",
+    "app": "government_regulatory_ecosystem",
+    "module": "government_reporting",
+    "submodule": "reporting_requirements",
+    "reference_doc_id": "government_report",
+    "evidence_gaps": [
+      "report-template structure",
+      "preparer/approver controls"
+    ]
+  }
+}

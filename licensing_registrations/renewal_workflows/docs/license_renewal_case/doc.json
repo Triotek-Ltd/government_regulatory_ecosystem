@@ -1,0 +1,27 @@
+{
+  "doc_key": "license_renewal_case",
+  "doc_title": "License Renewal Case",
+  "doc_kind": "workflow_case",
+  "status": "draft",
+  "module_id": "licensing_registrations",
+  "submodule_id": "renewal_workflows",
+  "app_id": "government_regulatory_ecosystem",
+  "base_action_profile": "base_record_actions",
+  "doc_archetype": "workflow_case",
+  "classification": {
+    "archetype": "workflow_case",
+    "bundle": "ecosystem"
+  },
+  "planning_source": {
+    "type": "reference_doc_generation_manifest",
+    "bundle": "ecosystem",
+    "app": "government_regulatory_ecosystem",
+    "module": "licensing_registrations",
+    "submodule": "renewal_workflows",
+    "reference_doc_id": "license_renewal_case",
+    "evidence_gaps": [
+      "renewal lead-time",
+      "lapse-handling policy"
+    ]
+  }
+}

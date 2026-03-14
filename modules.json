@@ -1,0 +1,7 @@
+{
+  "modules": [
+    "government_reporting",
+    "licensing_registrations",
+    "regulatory_filings"
+  ]
+}

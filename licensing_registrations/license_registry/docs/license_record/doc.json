@@ -1,0 +1,27 @@
+{
+  "doc_key": "license_record",
+  "doc_title": "License Record",
+  "doc_kind": "master",
+  "status": "draft",
+  "module_id": "licensing_registrations",
+  "submodule_id": "license_registry",
+  "app_id": "government_regulatory_ecosystem",
+  "base_action_profile": "base_record_actions",
+  "doc_archetype": "master",
+  "classification": {
+    "archetype": "master",
+    "bundle": "ecosystem"
+  },
+  "planning_source": {
+    "type": "reference_doc_generation_manifest",
+    "bundle": "ecosystem",
+    "app": "government_regulatory_ecosystem",
+    "module": "licensing_registrations",
+    "submodule": "license_registry",
+    "reference_doc_id": "license_record",
+    "evidence_gaps": [
+      "multi-scope licensing",
+      "suspension/reactivation rules"
+    ]
+  }
+}
