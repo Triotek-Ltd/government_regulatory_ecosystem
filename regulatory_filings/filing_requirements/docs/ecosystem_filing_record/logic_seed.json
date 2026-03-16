@@ -70,7 +70,10 @@
       "currency": "currency_code",
       "total_amount": "total_amount",
       "due_date": "schedule_marker",
-      "filing_status": "status_flag"
+      "filing_status": "status_flag",
+      "related_filing_requirement": "relation_collection",
+      "related_regulatory_review_case": "relation_collection",
+      "related_regulatory_filing": "relation_collection"
     },
     "search_fields": [
       "title",
@@ -111,7 +114,44 @@
       "archive": "archived"
     }
   },
-  "workflow_hints": {},
+  "workflow_hints": {
+    "relation_context": {
+      "related_docs": [
+        "filing_requirement",
+        "regulatory_review_case",
+        "regulatory_filing"
+      ],
+      "borrowed_fields": [
+        "authority",
+        "due rule",
+        "obligation context from filing_requirement"
+      ],
+      "inferred_roles": [
+        "compliance officer",
+        "case owner"
+      ]
+    },
+    "actors": [
+      "compliance officer",
+      "case owner"
+    ],
+    "action_actors": {
+      "create": [
+        "compliance officer"
+      ],
+      "submit": [
+        "compliance officer"
+      ],
+      "close": [
+        "case owner"
+      ],
+      "archive": [
+        "case owner"
+      ]
+    }
+  },
+  "downstream_effects": [],
+  "action_side_effects_file": "side_effects.json",
   "related_docs": [
     "filing_requirement",
     "regulatory_review_case",

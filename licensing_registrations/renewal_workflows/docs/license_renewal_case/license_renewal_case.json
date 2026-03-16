@@ -72,7 +72,11 @@
         "renewal_state",
         "final_outcome"
       ],
-      "relations": [],
+      "relations": [
+        "related_license_record",
+        "related_registration_application",
+        "related_regulatory_review_case"
+      ],
       "amounts": [],
       "dates": [],
       "parties": [],
@@ -330,6 +334,78 @@
           "filterable": true,
           "sortable": true
         }
+      },
+      {
+        "field_id": "related_license_record",
+        "label": "Related License Record",
+        "type": "Table MultiSelect",
+        "required": false,
+        "read_only": false,
+        "default": null,
+        "unique": false,
+        "options": null,
+        "purpose": "relation_collection",
+        "linked_doc": "license_record",
+        "depends_on": null,
+        "mandatory_depends_on": null,
+        "read_only_depends_on": null,
+        "fetch_from": null,
+        "allow_on_submit": false,
+        "indexed": false,
+        "ui": {
+          "visible": false,
+          "list_visible": false,
+          "filterable": false,
+          "sortable": false
+        }
+      },
+      {
+        "field_id": "related_registration_application",
+        "label": "Related Registration Application",
+        "type": "Table MultiSelect",
+        "required": false,
+        "read_only": false,
+        "default": null,
+        "unique": false,
+        "options": null,
+        "purpose": "relation_collection",
+        "linked_doc": "registration_application",
+        "depends_on": null,
+        "mandatory_depends_on": null,
+        "read_only_depends_on": null,
+        "fetch_from": null,
+        "allow_on_submit": false,
+        "indexed": false,
+        "ui": {
+          "visible": false,
+          "list_visible": false,
+          "filterable": false,
+          "sortable": false
+        }
+      },
+      {
+        "field_id": "related_regulatory_review_case",
+        "label": "Related Regulatory Review Case",
+        "type": "Table MultiSelect",
+        "required": false,
+        "read_only": false,
+        "default": null,
+        "unique": false,
+        "options": null,
+        "purpose": "relation_collection",
+        "linked_doc": "regulatory_review_case",
+        "depends_on": null,
+        "mandatory_depends_on": null,
+        "read_only_depends_on": null,
+        "fetch_from": null,
+        "allow_on_submit": false,
+        "indexed": false,
+        "ui": {
+          "visible": false,
+          "list_visible": false,
+          "filterable": false,
+          "sortable": false
+        }
       }
     ],
     "title_field": "title",
@@ -452,16 +528,33 @@
       {
         "role_id": "System Manager",
         "actions": [
-          "create",
-          "update",
           "view",
           "list",
-          "record",
-          "review",
+          "create",
           "assign",
-          "track",
-          "monitor",
-          "confirm",
+          "prepare",
+          "submit",
+          "renew",
+          "close",
+          "archive"
+        ]
+      },
+      {
+        "role_id": "compliance officer",
+        "actions": [
+          "view",
+          "list",
+          "create",
+          "assign",
+          "submit"
+        ]
+      },
+      {
+        "role_id": "case owner",
+        "actions": [
+          "view",
+          "list",
+          "close",
           "archive"
         ]
       }
@@ -540,7 +633,26 @@
         "show_in_related_panel": true
       }
     ],
-    "lookup_rules": [],
+    "lookup_rules": [
+      {
+        "field_id": "related_license_record",
+        "doc_id": "license_record",
+        "lookup_mode": "multiple",
+        "purpose": "relation_collection"
+      },
+      {
+        "field_id": "related_registration_application",
+        "doc_id": "registration_application",
+        "lookup_mode": "multiple",
+        "purpose": "relation_collection"
+      },
+      {
+        "field_id": "related_regulatory_review_case",
+        "doc_id": "regulatory_review_case",
+        "lookup_mode": "multiple",
+        "purpose": "relation_collection"
+      }
+    ],
     "fetch_rules": [],
     "reference_map": {
       "primary_reference_field": "reference_no",
@@ -548,7 +660,11 @@
     },
     "relation_rules": {
       "parent_doc": null,
-      "child_docs": [],
+      "child_docs": [
+        "license_record",
+        "registration_application",
+        "regulatory_review_case"
+      ],
       "show_related_panel": true
     },
     "borrowed_fields": [
@@ -572,7 +688,46 @@
     "runtime_hints": {
       "doc_key": "license_renewal_case",
       "supports_related_lookup": true,
-      "supports_fetch_rules": true
+      "supports_fetch_rules": true,
+      "workflow_hints": {
+        "relation_context": {
+          "related_docs": [
+            "license_record",
+            "registration_application",
+            "regulatory_review_case"
+          ],
+          "borrowed_fields": [
+            "license authority",
+            "expiry from license_record"
+          ],
+          "inferred_roles": [
+            "compliance officer",
+            "case owner"
+          ]
+        },
+        "actors": [
+          "compliance officer",
+          "case owner"
+        ],
+        "action_actors": {
+          "create": [
+            "compliance officer"
+          ],
+          "assign": [
+            "compliance officer"
+          ],
+          "submit": [
+            "compliance officer"
+          ],
+          "close": [
+            "case owner"
+          ],
+          "archive": [
+            "case owner"
+          ]
+        }
+      },
+      "action_side_effects_file": "side_effects.json"
     }
   },
   "classification": {
@@ -648,6 +803,9 @@
       "reports": "reports/service.py",
       "integrations": "integrations/service.py"
     },
+    "runtime_contract": {
+      "side_effects_file": "side_effects.json"
+    },
     "action_handlers": {
       "base_dir": "actions",
       "registry": "actions/registry.py",
@@ -667,6 +825,49 @@
       "doc_kind": "workflow_case"
     }
   },
+  "testing": {
+    "seeded": true,
+    "api_base_path": "/apis/government_regulatory_ecosystem/licensing_registrations/renewal_workflows/license_renewal_case/",
+    "status_field": "workflow_state",
+    "initial_state": "opened",
+    "required_fields": [
+      "title",
+      "workflow_state"
+    ],
+    "transition_scenarios": [
+      {
+        "action_id": "submit",
+        "source_state": "opened",
+        "target_state": "submitted",
+        "disallowed_state": "closed"
+      },
+      {
+        "action_id": "renew",
+        "source_state": "opened",
+        "target_state": "renewed",
+        "disallowed_state": "closed"
+      },
+      {
+        "action_id": "close",
+        "source_state": "opened",
+        "target_state": "closed",
+        "disallowed_state": "closed"
+      },
+      {
+        "action_id": "archive",
+        "source_state": "opened",
+        "target_state": "archived",
+        "disallowed_state": "closed"
+      }
+    ],
+    "related_docs": [
+      "license_record",
+      "registration_application",
+      "regulatory_review_case"
+    ],
+    "downstream_effects": [],
+    "action_side_effects_file": "side_effects.json"
+  },
   "runtime": {
     "source_of_truth": "doc_folder",
     "generated_from": [
@@ -674,7 +875,8 @@
       "schema.json",
       "actions.json",
       "settings.json",
-      "logic_seed.json"
+      "logic_seed.json",
+      "side_effects.json"
     ],
     "generator": "plug.apps.doc.file_handler"
   }

@@ -28,7 +28,26 @@
       "show_in_related_panel": true
     }
   ],
-  "lookup_rules": [],
+  "lookup_rules": [
+    {
+      "field_id": "related_license_record",
+      "doc_id": "license_record",
+      "lookup_mode": "multiple",
+      "purpose": "relation_collection"
+    },
+    {
+      "field_id": "related_registration_application",
+      "doc_id": "registration_application",
+      "lookup_mode": "multiple",
+      "purpose": "relation_collection"
+    },
+    {
+      "field_id": "related_regulatory_review_case",
+      "doc_id": "regulatory_review_case",
+      "lookup_mode": "multiple",
+      "purpose": "relation_collection"
+    }
+  ],
   "fetch_rules": [],
   "reference_map": {
     "primary_reference_field": "reference_no",
@@ -36,7 +55,11 @@
   },
   "relation_rules": {
     "parent_doc": null,
-    "child_docs": [],
+    "child_docs": [
+      "license_record",
+      "registration_application",
+      "regulatory_review_case"
+    ],
     "show_related_panel": true
   },
   "borrowed_fields": [
@@ -60,6 +83,45 @@
   "runtime_hints": {
     "doc_key": "license_renewal_case",
     "supports_related_lookup": true,
-    "supports_fetch_rules": true
+    "supports_fetch_rules": true,
+    "workflow_hints": {
+      "relation_context": {
+        "related_docs": [
+          "license_record",
+          "registration_application",
+          "regulatory_review_case"
+        ],
+        "borrowed_fields": [
+          "license authority",
+          "expiry from license_record"
+        ],
+        "inferred_roles": [
+          "compliance officer",
+          "case owner"
+        ]
+      },
+      "actors": [
+        "compliance officer",
+        "case owner"
+      ],
+      "action_actors": {
+        "create": [
+          "compliance officer"
+        ],
+        "assign": [
+          "compliance officer"
+        ],
+        "submit": [
+          "compliance officer"
+        ],
+        "close": [
+          "case owner"
+        ],
+        "archive": [
+          "case owner"
+        ]
+      }
+    },
+    "action_side_effects_file": "side_effects.json"
   }
 }

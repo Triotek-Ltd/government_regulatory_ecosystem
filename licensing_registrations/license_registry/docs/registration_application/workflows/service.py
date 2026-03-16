@@ -11,7 +11,7 @@ TERMINAL_STATES = ['closed', 'archived']
 ACTION_RULES = {'create': {'allowed_in_states': ['draft', 'submitted', 'in_review', 'approved', 'rejected'], 'transitions_to': None}, 'submit': {'allowed_in_states': ['draft', 'submitted', 'in_review', 'approved', 'rejected'], 'transitions_to': 'submitted'}, 'update': {'allowed_in_states': ['draft', 'submitted', 'in_review', 'approved', 'rejected'], 'transitions_to': None}, 'approve': {'allowed_in_states': ['draft', 'submitted', 'in_review', 'approved', 'rejected'], 'transitions_to': 'approved'}, 'reject': {'allowed_in_states': ['draft', 'submitted', 'in_review', 'approved', 'rejected'], 'transitions_to': 'rejected'}, 'archive': {'allowed_in_states': ['draft', 'submitted', 'in_review', 'approved', 'rejected'], 'transitions_to': 'archived'}}
 
 STATE_FIELD = 'workflow_state'
-WORKFLOW_HINTS = {}
+WORKFLOW_HINTS = {'relation_context': {'related_docs': ['license_record', 'license_renewal_case'], 'borrowed_fields': ['authority', 'target license type from license_record or requirement config'], 'inferred_roles': ['case owner']}, 'actors': ['case owner'], 'action_actors': {'create': ['case owner'], 'submit': ['case owner'], 'update': ['case owner'], 'approve': ['case owner'], 'reject': ['case owner'], 'archive': ['case owner']}}
 
 class WorkflowService:
     def allowed_actions_for_state(self, state: str | None) -> list[str]:

@@ -65,7 +65,10 @@
     ],
     "field_purposes": {
       "workflow_state": "lifecycle_state",
-      "owner": "actor_reference"
+      "owner": "actor_reference",
+      "related_license_record": "relation_collection",
+      "related_registration_application": "relation_collection",
+      "related_regulatory_review_case": "relation_collection"
     },
     "search_fields": [
       "title",
@@ -105,7 +108,46 @@
       "archive": "archived"
     }
   },
-  "workflow_hints": {},
+  "workflow_hints": {
+    "relation_context": {
+      "related_docs": [
+        "license_record",
+        "registration_application",
+        "regulatory_review_case"
+      ],
+      "borrowed_fields": [
+        "license authority",
+        "expiry from license_record"
+      ],
+      "inferred_roles": [
+        "compliance officer",
+        "case owner"
+      ]
+    },
+    "actors": [
+      "compliance officer",
+      "case owner"
+    ],
+    "action_actors": {
+      "create": [
+        "compliance officer"
+      ],
+      "assign": [
+        "compliance officer"
+      ],
+      "submit": [
+        "compliance officer"
+      ],
+      "close": [
+        "case owner"
+      ],
+      "archive": [
+        "case owner"
+      ]
+    }
+  },
+  "downstream_effects": [],
+  "action_side_effects_file": "side_effects.json",
   "related_docs": [
     "license_record",
     "registration_application",

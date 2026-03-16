@@ -55,7 +55,10 @@
       "workflow_state"
     ],
     "field_purposes": {
-      "workflow_state": "lifecycle_state"
+      "workflow_state": "lifecycle_state",
+      "related_ecosystem_filing_record": "relation_collection",
+      "related_government_report": "relation_collection",
+      "related_license_record": "relation_collection"
     },
     "search_fields": [
       "title",
@@ -90,7 +93,44 @@
       "archive": "archived"
     }
   },
-  "workflow_hints": {},
+  "workflow_hints": {
+    "relation_context": {
+      "related_docs": [
+        "ecosystem_filing_record",
+        "government_report",
+        "license_record"
+      ],
+      "borrowed_fields": [],
+      "inferred_roles": [
+        "compliance officer"
+      ]
+    },
+    "actors": [
+      "compliance officer"
+    ],
+    "action_actors": {
+      "create": [
+        "compliance officer"
+      ],
+      "update": [
+        "compliance officer"
+      ],
+      "review": [
+        "compliance officer"
+      ],
+      "activate": [
+        "compliance officer"
+      ],
+      "retire": [
+        "compliance officer"
+      ],
+      "archive": [
+        "compliance officer"
+      ]
+    }
+  },
+  "downstream_effects": [],
+  "action_side_effects_file": "side_effects.json",
   "related_docs": [
     "ecosystem_filing_record",
     "government_report",

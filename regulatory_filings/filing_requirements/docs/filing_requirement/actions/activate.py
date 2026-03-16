@@ -8,7 +8,7 @@ ACTION_ID = "activate"
 ACTION_RULE = {'allowed_in_states': ['draft'], 'transitions_to': 'active'}
 
 STATE_FIELD = 'workflow_state'
-WORKFLOW_HINTS = {}
+WORKFLOW_HINTS = {'relation_context': {'related_docs': ['ecosystem_filing_record', 'government_report', 'license_record'], 'borrowed_fields': [], 'inferred_roles': ['compliance officer']}, 'actors': ['compliance officer'], 'action_actors': {'create': ['compliance officer'], 'update': ['compliance officer'], 'review': ['compliance officer'], 'activate': ['compliance officer'], 'retire': ['compliance officer'], 'archive': ['compliance officer']}}
 
 def handle_activate(payload: dict, context: dict | None = None) -> dict:
     context = context or {}

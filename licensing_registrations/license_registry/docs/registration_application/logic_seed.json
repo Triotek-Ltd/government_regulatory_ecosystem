@@ -70,7 +70,9 @@
       "currency": "currency_code",
       "total_amount": "total_amount",
       "application_date": "schedule_marker",
-      "application_status": "status_flag"
+      "application_status": "status_flag",
+      "related_license_record": "relation_collection",
+      "related_license_renewal_case": "relation_collection"
     },
     "search_fields": [
       "title",
@@ -111,7 +113,46 @@
       "archive": "archived"
     }
   },
-  "workflow_hints": {},
+  "workflow_hints": {
+    "relation_context": {
+      "related_docs": [
+        "license_record",
+        "license_renewal_case"
+      ],
+      "borrowed_fields": [
+        "authority",
+        "target license type from license_record or requirement config"
+      ],
+      "inferred_roles": [
+        "case owner"
+      ]
+    },
+    "actors": [
+      "case owner"
+    ],
+    "action_actors": {
+      "create": [
+        "case owner"
+      ],
+      "submit": [
+        "case owner"
+      ],
+      "update": [
+        "case owner"
+      ],
+      "approve": [
+        "case owner"
+      ],
+      "reject": [
+        "case owner"
+      ],
+      "archive": [
+        "case owner"
+      ]
+    }
+  },
+  "downstream_effects": [],
+  "action_side_effects_file": "side_effects.json",
   "related_docs": [
     "license_record",
     "license_renewal_case"

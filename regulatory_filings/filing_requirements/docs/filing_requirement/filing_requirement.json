@@ -62,7 +62,11 @@
         "due_rule",
         "active_state"
       ],
-      "relations": [],
+      "relations": [
+        "related_ecosystem_filing_record",
+        "related_government_report",
+        "related_license_record"
+      ],
       "amounts": [],
       "dates": [],
       "parties": [],
@@ -317,6 +321,78 @@
           "filterable": true,
           "sortable": true
         }
+      },
+      {
+        "field_id": "related_ecosystem_filing_record",
+        "label": "Related Ecosystem Filing Record",
+        "type": "Table MultiSelect",
+        "required": false,
+        "read_only": false,
+        "default": null,
+        "unique": false,
+        "options": null,
+        "purpose": "relation_collection",
+        "linked_doc": "ecosystem_filing_record",
+        "depends_on": null,
+        "mandatory_depends_on": null,
+        "read_only_depends_on": null,
+        "fetch_from": null,
+        "allow_on_submit": false,
+        "indexed": false,
+        "ui": {
+          "visible": false,
+          "list_visible": false,
+          "filterable": false,
+          "sortable": false
+        }
+      },
+      {
+        "field_id": "related_government_report",
+        "label": "Related Government Report",
+        "type": "Table MultiSelect",
+        "required": false,
+        "read_only": false,
+        "default": null,
+        "unique": false,
+        "options": null,
+        "purpose": "relation_collection",
+        "linked_doc": "government_report",
+        "depends_on": null,
+        "mandatory_depends_on": null,
+        "read_only_depends_on": null,
+        "fetch_from": null,
+        "allow_on_submit": false,
+        "indexed": false,
+        "ui": {
+          "visible": false,
+          "list_visible": false,
+          "filterable": false,
+          "sortable": false
+        }
+      },
+      {
+        "field_id": "related_license_record",
+        "label": "Related License Record",
+        "type": "Table MultiSelect",
+        "required": false,
+        "read_only": false,
+        "default": null,
+        "unique": false,
+        "options": null,
+        "purpose": "relation_collection",
+        "linked_doc": "license_record",
+        "depends_on": null,
+        "mandatory_depends_on": null,
+        "read_only_depends_on": null,
+        "fetch_from": null,
+        "allow_on_submit": false,
+        "indexed": false,
+        "ui": {
+          "visible": false,
+          "list_visible": false,
+          "filterable": false,
+          "sortable": false
+        }
       }
     ],
     "title_field": "title",
@@ -411,16 +487,26 @@
       {
         "role_id": "System Manager",
         "actions": [
-          "create",
-          "update",
           "view",
           "list",
-          "record",
+          "create",
+          "update",
           "review",
-          "assign",
-          "track",
-          "monitor",
-          "confirm",
+          "activate",
+          "retire",
+          "archive"
+        ]
+      },
+      {
+        "role_id": "compliance officer",
+        "actions": [
+          "view",
+          "list",
+          "create",
+          "update",
+          "review",
+          "activate",
+          "retire",
           "archive"
         ]
       }
@@ -499,7 +585,26 @@
         "show_in_related_panel": true
       }
     ],
-    "lookup_rules": [],
+    "lookup_rules": [
+      {
+        "field_id": "related_ecosystem_filing_record",
+        "doc_id": "ecosystem_filing_record",
+        "lookup_mode": "multiple",
+        "purpose": "relation_collection"
+      },
+      {
+        "field_id": "related_government_report",
+        "doc_id": "government_report",
+        "lookup_mode": "multiple",
+        "purpose": "relation_collection"
+      },
+      {
+        "field_id": "related_license_record",
+        "doc_id": "license_record",
+        "lookup_mode": "multiple",
+        "purpose": "relation_collection"
+      }
+    ],
     "fetch_rules": [],
     "reference_map": {
       "primary_reference_field": "reference_no",
@@ -507,7 +612,11 @@
     },
     "relation_rules": {
       "parent_doc": null,
-      "child_docs": [],
+      "child_docs": [
+        "ecosystem_filing_record",
+        "government_report",
+        "license_record"
+      ],
       "show_related_panel": true
     },
     "borrowed_fields": [],
@@ -524,7 +633,44 @@
     "runtime_hints": {
       "doc_key": "filing_requirement",
       "supports_related_lookup": true,
-      "supports_fetch_rules": true
+      "supports_fetch_rules": true,
+      "workflow_hints": {
+        "relation_context": {
+          "related_docs": [
+            "ecosystem_filing_record",
+            "government_report",
+            "license_record"
+          ],
+          "borrowed_fields": [],
+          "inferred_roles": [
+            "compliance officer"
+          ]
+        },
+        "actors": [
+          "compliance officer"
+        ],
+        "action_actors": {
+          "create": [
+            "compliance officer"
+          ],
+          "update": [
+            "compliance officer"
+          ],
+          "review": [
+            "compliance officer"
+          ],
+          "activate": [
+            "compliance officer"
+          ],
+          "retire": [
+            "compliance officer"
+          ],
+          "archive": [
+            "compliance officer"
+          ]
+        }
+      },
+      "action_side_effects_file": "side_effects.json"
     }
   },
   "classification": {
@@ -600,6 +746,9 @@
       "reports": "reports/service.py",
       "integrations": "integrations/service.py"
     },
+    "runtime_contract": {
+      "side_effects_file": "side_effects.json"
+    },
     "action_handlers": {
       "base_dir": "actions",
       "registry": "actions/registry.py",
@@ -618,6 +767,37 @@
       "doc_kind": "configuration"
     }
   },
+  "testing": {
+    "seeded": true,
+    "api_base_path": "/apis/government_regulatory_ecosystem/regulatory_filings/filing_requirements/filing_requirement/",
+    "status_field": "workflow_state",
+    "initial_state": "draft",
+    "required_fields": [
+      "title",
+      "workflow_state"
+    ],
+    "transition_scenarios": [
+      {
+        "action_id": "activate",
+        "source_state": "draft",
+        "target_state": "active",
+        "disallowed_state": "archived"
+      },
+      {
+        "action_id": "archive",
+        "source_state": "draft",
+        "target_state": "archived",
+        "disallowed_state": "archived"
+      }
+    ],
+    "related_docs": [
+      "ecosystem_filing_record",
+      "government_report",
+      "license_record"
+    ],
+    "downstream_effects": [],
+    "action_side_effects_file": "side_effects.json"
+  },
   "runtime": {
     "source_of_truth": "doc_folder",
     "generated_from": [
@@ -625,7 +805,8 @@
       "schema.json",
       "actions.json",
       "settings.json",
-      "logic_seed.json"
+      "logic_seed.json",
+      "side_effects.json"
     ],
     "generator": "plug.apps.doc.file_handler"
   }

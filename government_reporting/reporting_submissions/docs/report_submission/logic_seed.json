@@ -67,7 +67,10 @@
       "currency": "currency_code",
       "total_amount": "total_amount",
       "submission_date": "schedule_marker",
-      "submission_status": "status_flag"
+      "submission_status": "status_flag",
+      "related_government_report": "relation_collection",
+      "related_report_acknowledgement": "relation_collection",
+      "related_regulatory_review_case": "relation_collection"
     },
     "search_fields": [
       "title",
@@ -106,7 +109,43 @@
       "archive": "archived"
     }
   },
-  "workflow_hints": {},
+  "workflow_hints": {
+    "relation_context": {
+      "related_docs": [
+        "government_report",
+        "report_acknowledgement",
+        "regulatory_review_case"
+      ],
+      "borrowed_fields": [
+        "report scope",
+        "authority from government_report"
+      ],
+      "inferred_roles": [
+        "compliance officer",
+        "case owner"
+      ]
+    },
+    "actors": [
+      "compliance officer",
+      "case owner"
+    ],
+    "action_actors": {
+      "create": [
+        "compliance officer"
+      ],
+      "submit": [
+        "compliance officer"
+      ],
+      "reject": [
+        "compliance officer"
+      ],
+      "archive": [
+        "case owner"
+      ]
+    }
+  },
+  "downstream_effects": [],
+  "action_side_effects_file": "side_effects.json",
   "related_docs": [
     "government_report",
     "report_acknowledgement",

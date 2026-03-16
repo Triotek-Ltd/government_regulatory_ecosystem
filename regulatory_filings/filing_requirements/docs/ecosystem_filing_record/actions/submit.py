@@ -8,7 +8,7 @@ ACTION_ID = "submit"
 ACTION_RULE = {'allowed_in_states': ['draft', 'prepared', 'submitted', 'accepted', 'rejected'], 'transitions_to': 'submitted'}
 
 STATE_FIELD = 'workflow_state'
-WORKFLOW_HINTS = {}
+WORKFLOW_HINTS = {'relation_context': {'related_docs': ['filing_requirement', 'regulatory_review_case', 'regulatory_filing'], 'borrowed_fields': ['authority', 'due rule', 'obligation context from filing_requirement'], 'inferred_roles': ['compliance officer', 'case owner']}, 'actors': ['compliance officer', 'case owner'], 'action_actors': {'create': ['compliance officer'], 'submit': ['compliance officer'], 'close': ['case owner'], 'archive': ['case owner']}}
 
 def handle_submit(payload: dict, context: dict | None = None) -> dict:
     context = context or {}

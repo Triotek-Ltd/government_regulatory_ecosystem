@@ -61,7 +61,10 @@
       "party": "primary_party",
       "currency": "currency_code",
       "total_amount": "total_amount",
-      "preparation_status": "status_flag"
+      "preparation_status": "status_flag",
+      "related_report_submission": "relation_collection",
+      "related_report_acknowledgement": "relation_collection",
+      "related_filing_requirement": "relation_collection"
     },
     "search_fields": [
       "title",
@@ -98,6 +101,8 @@
     }
   },
   "workflow_hints": {},
+  "downstream_effects": [],
+  "action_side_effects_file": "side_effects.json",
   "related_docs": [
     "report_submission",
     "report_acknowledgement",

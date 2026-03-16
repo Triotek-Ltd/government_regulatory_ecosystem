@@ -11,7 +11,7 @@ TERMINAL_STATES = ['archived']
 ACTION_RULES = {'create': {'allowed_in_states': ['draft', 'submitted', 'accepted', 'rejected', 'completed'], 'transitions_to': None}, 'submit': {'allowed_in_states': ['draft', 'submitted', 'accepted', 'rejected', 'completed'], 'transitions_to': 'submitted'}, 'retry': {'allowed_in_states': ['draft', 'submitted', 'accepted', 'rejected', 'completed'], 'transitions_to': None}, 'accept': {'allowed_in_states': ['draft', 'submitted', 'accepted', 'rejected', 'completed'], 'transitions_to': None}, 'reject': {'allowed_in_states': ['draft', 'submitted', 'accepted', 'rejected', 'completed'], 'transitions_to': 'rejected'}, 'archive': {'allowed_in_states': ['draft', 'submitted', 'accepted', 'rejected', 'completed'], 'transitions_to': 'archived'}}
 
 STATE_FIELD = 'workflow_state'
-WORKFLOW_HINTS = {}
+WORKFLOW_HINTS = {'relation_context': {'related_docs': ['government_report', 'report_acknowledgement', 'regulatory_review_case'], 'borrowed_fields': ['report scope', 'authority from government_report'], 'inferred_roles': ['compliance officer', 'case owner']}, 'actors': ['compliance officer', 'case owner'], 'action_actors': {'create': ['compliance officer'], 'submit': ['compliance officer'], 'reject': ['compliance officer'], 'archive': ['case owner']}}
 
 class WorkflowService:
     def allowed_actions_for_state(self, state: str | None) -> list[str]:

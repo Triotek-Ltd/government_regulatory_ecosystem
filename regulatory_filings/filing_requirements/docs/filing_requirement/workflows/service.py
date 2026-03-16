@@ -11,7 +11,7 @@ TERMINAL_STATES = ['archived']
 ACTION_RULES = {'create': {'allowed_in_states': ['draft', 'active', 'retired'], 'transitions_to': None}, 'update': {'allowed_in_states': ['draft', 'active', 'retired'], 'transitions_to': None}, 'review': {'allowed_in_states': ['draft', 'active', 'retired'], 'transitions_to': None}, 'activate': {'allowed_in_states': ['draft'], 'transitions_to': 'active'}, 'retire': {'allowed_in_states': ['draft', 'active', 'retired'], 'transitions_to': None}, 'archive': {'allowed_in_states': ['draft', 'active', 'retired'], 'transitions_to': 'archived'}}
 
 STATE_FIELD = 'workflow_state'
-WORKFLOW_HINTS = {}
+WORKFLOW_HINTS = {'relation_context': {'related_docs': ['ecosystem_filing_record', 'government_report', 'license_record'], 'borrowed_fields': [], 'inferred_roles': ['compliance officer']}, 'actors': ['compliance officer'], 'action_actors': {'create': ['compliance officer'], 'update': ['compliance officer'], 'review': ['compliance officer'], 'activate': ['compliance officer'], 'retire': ['compliance officer'], 'archive': ['compliance officer']}}
 
 class WorkflowService:
     def allowed_actions_for_state(self, state: str | None) -> list[str]:

@@ -8,7 +8,7 @@ ACTION_ID = "close"
 ACTION_RULE = {'allowed_in_states': ['opened', 'preparing', 'submitted', 'renewed', 'expired'], 'transitions_to': 'closed'}
 
 STATE_FIELD = 'workflow_state'
-WORKFLOW_HINTS = {}
+WORKFLOW_HINTS = {'relation_context': {'related_docs': ['license_record', 'registration_application', 'regulatory_review_case'], 'borrowed_fields': ['license authority', 'expiry from license_record'], 'inferred_roles': ['compliance officer', 'case owner']}, 'actors': ['compliance officer', 'case owner'], 'action_actors': {'create': ['compliance officer'], 'assign': ['compliance officer'], 'submit': ['compliance officer'], 'close': ['case owner'], 'archive': ['case owner']}}
 
 def handle_close(payload: dict, context: dict | None = None) -> dict:
     context = context or {}

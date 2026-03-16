@@ -5,9 +5,11 @@ from __future__ import annotations
 
 ARCHETYPE_PROFILE = {'workflow_profile': {'mode': 'case_flow', 'supports_assignment': True, 'supports_escalation': True}, 'reporting_profile': {'supports_snapshots': True, 'supports_outputs': False}, 'integration_profile': {'external_sync_enabled': False}, 'lifecycle_states': ['opened', 'preparing', 'submitted', 'renewed', 'expired', 'closed', 'archived'], 'is_transactional': False}
 
-CONTRACT = {'title_field': 'title', 'status_field': 'workflow_state', 'reference_field': 'reference_no', 'required_fields': ['title', 'workflow_state'], 'field_purposes': {'workflow_state': 'lifecycle_state', 'owner': 'actor_reference'}, 'search_fields': ['title', 'reference_no', 'description', 'renewal_case_code', 'source_license', 'renewal_period'], 'list_columns': ['title', 'reference_no', 'workflow_state', 'modified'], 'initial_state': 'opened', 'lifecycle_states': ['opened', 'preparing', 'submitted', 'renewed', 'expired', 'closed', 'archived'], 'terminal_states': ['closed', 'archived'], 'action_targets': {'create': None, 'assign': None, 'prepare': None, 'submit': 'submitted', 'renew': 'renewed', 'close': 'closed', 'archive': 'archived'}}
+CONTRACT = {'title_field': 'title', 'status_field': 'workflow_state', 'reference_field': 'reference_no', 'required_fields': ['title', 'workflow_state'], 'field_purposes': {'workflow_state': 'lifecycle_state', 'owner': 'actor_reference', 'related_license_record': 'relation_collection', 'related_registration_application': 'relation_collection', 'related_regulatory_review_case': 'relation_collection'}, 'search_fields': ['title', 'reference_no', 'description', 'renewal_case_code', 'source_license', 'renewal_period'], 'list_columns': ['title', 'reference_no', 'workflow_state', 'modified'], 'initial_state': 'opened', 'lifecycle_states': ['opened', 'preparing', 'submitted', 'renewed', 'expired', 'closed', 'archived'], 'terminal_states': ['closed', 'archived'], 'action_targets': {'create': None, 'assign': None, 'prepare': None, 'submit': 'submitted', 'renew': 'renewed', 'close': 'closed', 'archive': 'archived'}}
 
-WORKFLOW_HINTS = {}
+WORKFLOW_HINTS = {'relation_context': {'related_docs': ['license_record', 'registration_application', 'regulatory_review_case'], 'borrowed_fields': ['license authority', 'expiry from license_record'], 'inferred_roles': ['compliance officer', 'case owner']}, 'actors': ['compliance officer', 'case owner'], 'action_actors': {'create': ['compliance officer'], 'assign': ['compliance officer'], 'submit': ['compliance officer'], 'close': ['case owner'], 'archive': ['case owner']}}
+
+SIDE_EFFECT_HINTS = {'downstream_effects': [], 'related_docs': ['license_record', 'registration_application', 'regulatory_review_case'], 'action_targets': {'create': None, 'assign': None, 'prepare': None, 'submit': 'submitted', 'renew': 'renewed', 'close': 'closed', 'archive': 'archived'}, 'action_side_effects_file': 'side_effects.json'}
 
 class DomainService:
     doc_id = "license_renewal_case"
@@ -63,12 +65,28 @@ class DomainService:
     def after_update(self, instance, serialized_data: dict, context: dict | None = None) -> dict:
         return serialized_data
 
+    def after_action(
+        self,
+        instance,
+        action_id: str,
+        payload: dict,
+        action_result: dict,
+        context: dict | None = None,
+    ) -> dict:
+        return {
+            "updates": {},
+            "side_effects": [],
+        }
+
     def shape_retrieve_data(self, instance, serialized_data: dict, context: dict | None = None) -> dict:
         serialized_data.setdefault("_business_capabilities", self.business_capabilities())
         return serialized_data
 
     def workflow_objective(self) -> str | None:
         return WORKFLOW_HINTS.get("business_objective")
+
+    def side_effect_hints(self) -> dict:
+        return SIDE_EFFECT_HINTS
 
     def business_capabilities(self) -> dict:
         return {
