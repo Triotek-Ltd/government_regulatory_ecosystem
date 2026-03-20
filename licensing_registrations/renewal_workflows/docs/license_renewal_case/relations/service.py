@@ -6,7 +6,7 @@ from core.services.relation_resolution import RelationResolutionService
 
 
 DOC_ID = "license_renewal_case"
-RELATED_DOCS = [{'doc_id': 'license_record', 'relation_type': 'related', 'show_in_related_panel': True}, {'doc_id': 'registration_application', 'relation_type': 'related', 'show_in_related_panel': True}, {'doc_id': 'regulatory_review_case', 'relation_type': 'related', 'show_in_related_panel': True}]
+RELATED_DOCS = [{'doc_id': 'license_record', 'relation_type': 'related', 'show_in_related_panel': True}, {'doc_id': 'registration_application', 'relation_type': 'related', 'show_in_related_panel': True}, {'doc_id': 'regulatory_review_case', 'relation_type': 'related', 'show_in_related_panel': True}, {'doc_id': 'employee_record', 'relation_type': 'related', 'show_in_related_panel': True}]
 FETCH_RULES = []
 
 BORROWED_FIELDS = [{'description': 'license authority'}, {'description': 'expiry from license_record'}]

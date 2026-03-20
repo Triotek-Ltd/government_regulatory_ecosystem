@@ -4,5 +4,625 @@
   "app_id": "government_regulatory_ecosystem",
   "type": "module",
   "status": "draft",
-  "supports_submodules": true
+  "supports_submodules": true,
+  "ui": {
+    "icon_key": "apps",
+    "accent": "#246f89",
+    "logo_image": null,
+    "cover_image": null
+  },
+  "dashboard": {
+    "version": 1,
+    "surface": "module",
+    "hero": {
+      "variant": "summary_strip",
+      "show_breadcrumb": true,
+      "show_title": true
+    },
+    "navigation": {
+      "primary_children": "docs",
+      "flatten_submodules_in_ui": true
+    },
+    "blocks": [
+      {
+        "id": "kpis",
+        "type": "kpi_cards",
+        "title": "Regulatory Filings KPIs",
+        "data_source": {
+          "kind": "db",
+          "entity_scope": "module",
+          "entity_id": "regulatory_filings",
+          "metric_family": "overview"
+        }
+      },
+      {
+        "id": "summaries",
+        "type": "summary_cards",
+        "title": "Regulatory Filings summaries",
+        "data_source": {
+          "kind": "db",
+          "entity_scope": "module",
+          "entity_id": "regulatory_filings",
+          "metric_family": "summary"
+        }
+      },
+      {
+        "id": "charts",
+        "type": "chart_group",
+        "title": "Regulatory Filings charts",
+        "data_source": {
+          "kind": "db",
+          "entity_scope": "module",
+          "entity_id": "regulatory_filings",
+          "metric_family": "trend"
+        },
+        "chart_specs": [
+          {
+            "id": "regulatory_filings_trend_line",
+            "label": "Regulatory Filings trend",
+            "chart_type": "line",
+            "series_role": "time_series",
+            "metric_family": "trend",
+            "x_field": "period",
+            "y_field": "value"
+          },
+          {
+            "id": "regulatory_filings_volume_column",
+            "label": "Regulatory Filings volume",
+            "chart_type": "column",
+            "series_role": "comparison",
+            "metric_family": "summary",
+            "x_field": "category",
+            "y_field": "count"
+          },
+          {
+            "id": "regulatory_filings_distribution_donut",
+            "label": "Regulatory Filings distribution",
+            "chart_type": "donut",
+            "series_role": "distribution",
+            "metric_family": "summary",
+            "segment_field": "category",
+            "value_field": "value"
+          },
+          {
+            "id": "ecosystem_filing_record_trend_line",
+            "label": "Ecosystem Filing Record trend",
+            "chart_type": "line",
+            "series_role": "time_series",
+            "metric_family": "trend",
+            "x_field": "period",
+            "y_field": "value"
+          },
+          {
+            "id": "ecosystem_filing_record_volume_column",
+            "label": "Ecosystem Filing Record volume",
+            "chart_type": "column",
+            "series_role": "comparison",
+            "metric_family": "summary",
+            "x_field": "category",
+            "y_field": "count"
+          },
+          {
+            "id": "ecosystem_filing_record_distribution_donut",
+            "label": "Ecosystem Filing Record distribution",
+            "chart_type": "donut",
+            "series_role": "distribution",
+            "metric_family": "summary",
+            "segment_field": "category",
+            "value_field": "value"
+          },
+          {
+            "id": "filing_requirement_trend_line",
+            "label": "Filing Requirement trend",
+            "chart_type": "line",
+            "series_role": "time_series",
+            "metric_family": "trend",
+            "x_field": "period",
+            "y_field": "value"
+          },
+          {
+            "id": "filing_requirement_volume_column",
+            "label": "Filing Requirement volume",
+            "chart_type": "column",
+            "series_role": "comparison",
+            "metric_family": "summary",
+            "x_field": "category",
+            "y_field": "count"
+          },
+          {
+            "id": "filing_requirement_distribution_donut",
+            "label": "Filing Requirement distribution",
+            "chart_type": "donut",
+            "series_role": "distribution",
+            "metric_family": "summary",
+            "segment_field": "category",
+            "value_field": "value"
+          },
+          {
+            "id": "regulatory_review_case_trend_line",
+            "label": "Regulatory Review Case trend",
+            "chart_type": "line",
+            "series_role": "time_series",
+            "metric_family": "trend",
+            "x_field": "period",
+            "y_field": "value"
+          },
+          {
+            "id": "regulatory_review_case_volume_column",
+            "label": "Regulatory Review Case volume",
+            "chart_type": "column",
+            "series_role": "comparison",
+            "metric_family": "summary",
+            "x_field": "category",
+            "y_field": "count"
+          },
+          {
+            "id": "regulatory_review_case_distribution_donut",
+            "label": "Regulatory Review Case distribution",
+            "chart_type": "donut",
+            "series_role": "distribution",
+            "metric_family": "summary",
+            "segment_field": "category",
+            "value_field": "value"
+          }
+        ]
+      },
+      {
+        "id": "reports",
+        "type": "report_links",
+        "title": "Regulatory Filings reports",
+        "data_source": {
+          "kind": "db",
+          "entity_scope": "module",
+          "entity_id": "regulatory_filings",
+          "metric_family": "reporting"
+        }
+      }
+    ]
+  },
+  "reporting": {
+    "supports_kpis": true,
+    "supports_summaries": true,
+    "supports_charts": true,
+    "supports_reports": true,
+    "default_time_grain": "month",
+    "default_comparison": "previous_period",
+    "default_currency_mode": "base_currency",
+    "metric_sources": [
+      {
+        "id": "overview",
+        "kind": "db",
+        "entity_scope": "module",
+        "entity_id": "regulatory_filings",
+        "metric_family": "overview"
+      },
+      {
+        "id": "summary",
+        "kind": "db",
+        "entity_scope": "module",
+        "entity_id": "regulatory_filings",
+        "metric_family": "summary"
+      },
+      {
+        "id": "trend",
+        "kind": "db",
+        "entity_scope": "module",
+        "entity_id": "regulatory_filings",
+        "metric_family": "trend"
+      },
+      {
+        "id": "reporting",
+        "kind": "db",
+        "entity_scope": "module",
+        "entity_id": "regulatory_filings",
+        "metric_family": "reporting"
+      }
+    ],
+    "report_registry": [
+      {
+        "id": "overview_report",
+        "label": "Regulatory Filings Overview",
+        "report_type": "dashboard_summary",
+        "surface": "module"
+      },
+      {
+        "id": "trend_report",
+        "label": "Regulatory Filings Trends",
+        "report_type": "trend_analysis",
+        "surface": "module"
+      },
+      {
+        "id": "summary_report",
+        "label": "Ecosystem Filing Record Summary",
+        "report_type": "summary_report",
+        "surface": "doc"
+      },
+      {
+        "id": "detail_report",
+        "label": "Ecosystem Filing Record Detail",
+        "report_type": "detail_report",
+        "surface": "doc"
+      }
+    ],
+    "chart_library": {
+      "renderer": "recharts",
+      "recommended_package": "recharts",
+      "source": "https://recharts.org/en-US"
+    },
+    "chart_registry": [
+      {
+        "id": "regulatory_filings_trend_line",
+        "label": "Regulatory Filings trend",
+        "chart_type": "line",
+        "series_role": "time_series",
+        "metric_family": "trend",
+        "x_field": "period",
+        "y_field": "value"
+      },
+      {
+        "id": "regulatory_filings_volume_column",
+        "label": "Regulatory Filings volume",
+        "chart_type": "column",
+        "series_role": "comparison",
+        "metric_family": "summary",
+        "x_field": "category",
+        "y_field": "count"
+      },
+      {
+        "id": "regulatory_filings_distribution_donut",
+        "label": "Regulatory Filings distribution",
+        "chart_type": "donut",
+        "series_role": "distribution",
+        "metric_family": "summary",
+        "segment_field": "category",
+        "value_field": "value"
+      },
+      {
+        "id": "ecosystem_filing_record_trend_line",
+        "label": "Ecosystem Filing Record trend",
+        "chart_type": "line",
+        "series_role": "time_series",
+        "metric_family": "trend",
+        "x_field": "period",
+        "y_field": "value"
+      },
+      {
+        "id": "ecosystem_filing_record_volume_column",
+        "label": "Ecosystem Filing Record volume",
+        "chart_type": "column",
+        "series_role": "comparison",
+        "metric_family": "summary",
+        "x_field": "category",
+        "y_field": "count"
+      },
+      {
+        "id": "ecosystem_filing_record_distribution_donut",
+        "label": "Ecosystem Filing Record distribution",
+        "chart_type": "donut",
+        "series_role": "distribution",
+        "metric_family": "summary",
+        "segment_field": "category",
+        "value_field": "value"
+      },
+      {
+        "id": "filing_requirement_trend_line",
+        "label": "Filing Requirement trend",
+        "chart_type": "line",
+        "series_role": "time_series",
+        "metric_family": "trend",
+        "x_field": "period",
+        "y_field": "value"
+      },
+      {
+        "id": "filing_requirement_volume_column",
+        "label": "Filing Requirement volume",
+        "chart_type": "column",
+        "series_role": "comparison",
+        "metric_family": "summary",
+        "x_field": "category",
+        "y_field": "count"
+      },
+      {
+        "id": "filing_requirement_distribution_donut",
+        "label": "Filing Requirement distribution",
+        "chart_type": "donut",
+        "series_role": "distribution",
+        "metric_family": "summary",
+        "segment_field": "category",
+        "value_field": "value"
+      },
+      {
+        "id": "regulatory_review_case_trend_line",
+        "label": "Regulatory Review Case trend",
+        "chart_type": "line",
+        "series_role": "time_series",
+        "metric_family": "trend",
+        "x_field": "period",
+        "y_field": "value"
+      },
+      {
+        "id": "regulatory_review_case_volume_column",
+        "label": "Regulatory Review Case volume",
+        "chart_type": "column",
+        "series_role": "comparison",
+        "metric_family": "summary",
+        "x_field": "category",
+        "y_field": "count"
+      },
+      {
+        "id": "regulatory_review_case_distribution_donut",
+        "label": "Regulatory Review Case distribution",
+        "chart_type": "donut",
+        "series_role": "distribution",
+        "metric_family": "summary",
+        "segment_field": "category",
+        "value_field": "value"
+      }
+    ],
+    "source_docs": [],
+    "source_fields": [],
+    "child_sources": [
+      {
+        "id": "ecosystem_filing_record",
+        "title": "Ecosystem Filing Record",
+        "surface": null,
+        "source_docs": []
+      },
+      {
+        "id": "filing_requirement",
+        "title": "Filing Requirement",
+        "surface": null,
+        "source_docs": []
+      },
+      {
+        "id": "regulatory_review_case",
+        "title": "Regulatory Review Case",
+        "surface": null,
+        "source_docs": []
+      }
+    ]
+  },
+  "flow": {
+    "related_docs": [
+      "filing_requirement",
+      "regulatory_review_case",
+      "regulatory_filing",
+      "ecosystem_filing_record",
+      "government_report",
+      "license_record",
+      "report_submission",
+      "license_renewal_case"
+    ],
+    "upstream_docs": [
+      "filing_requirement",
+      "regulatory_review_case",
+      "regulatory_filing",
+      "ecosystem_filing_record",
+      "government_report",
+      "license_record",
+      "report_submission",
+      "license_renewal_case"
+    ],
+    "downstream_docs": [
+      "regulatory_review_case",
+      "ecosystem_filing_record",
+      "license_renewal_case"
+    ],
+    "actors": [
+      "compliance officer",
+      "case owner"
+    ],
+    "downstream_effects": [],
+    "emits_records": [
+      {
+        "action_id": "close",
+        "target_doc": "regulatory_review_case",
+        "effect_type": "create_record"
+      },
+      {
+        "action_id": "activate",
+        "target_doc": "ecosystem_filing_record",
+        "effect_type": "create_record"
+      },
+      {
+        "action_id": "close",
+        "target_doc": "license_renewal_case",
+        "effect_type": "create_record"
+      },
+      {
+        "action_id": "assign",
+        "target_doc": "license_renewal_case",
+        "effect_type": "create_record"
+      }
+    ],
+    "handoff_targets": [
+      "filing_requirement",
+      "regulatory_review_case",
+      "regulatory_filing",
+      "ecosystem_filing_record",
+      "government_report",
+      "license_record",
+      "report_submission",
+      "license_renewal_case"
+    ],
+    "graph_edges": [
+      {
+        "source_doc": "ecosystem_filing_record",
+        "target_doc": "filing_requirement",
+        "relation": "references"
+      },
+      {
+        "source_doc": "ecosystem_filing_record",
+        "target_doc": "regulatory_review_case",
+        "relation": "references"
+      },
+      {
+        "source_doc": "ecosystem_filing_record",
+        "target_doc": "regulatory_filing",
+        "relation": "references"
+      },
+      {
+        "source_doc": "ecosystem_filing_record",
+        "target_doc": "regulatory_review_case",
+        "relation": "create_record",
+        "action_id": "close"
+      },
+      {
+        "source_doc": "filing_requirement",
+        "target_doc": "ecosystem_filing_record",
+        "relation": "references"
+      },
+      {
+        "source_doc": "filing_requirement",
+        "target_doc": "government_report",
+        "relation": "references"
+      },
+      {
+        "source_doc": "filing_requirement",
+        "target_doc": "license_record",
+        "relation": "references"
+      },
+      {
+        "source_doc": "filing_requirement",
+        "target_doc": "ecosystem_filing_record",
+        "relation": "create_record",
+        "action_id": "activate"
+      },
+      {
+        "source_doc": "regulatory_review_case",
+        "target_doc": "ecosystem_filing_record",
+        "relation": "references"
+      },
+      {
+        "source_doc": "regulatory_review_case",
+        "target_doc": "report_submission",
+        "relation": "references"
+      },
+      {
+        "source_doc": "regulatory_review_case",
+        "target_doc": "license_renewal_case",
+        "relation": "references"
+      },
+      {
+        "source_doc": "regulatory_review_case",
+        "target_doc": "license_renewal_case",
+        "relation": "create_record",
+        "action_id": "close"
+      },
+      {
+        "source_doc": "regulatory_review_case",
+        "target_doc": "license_renewal_case",
+        "relation": "create_record",
+        "action_id": "assign"
+      }
+    ],
+    "operating_graph": {
+      "nodes": [
+        {
+          "id": "filing_requirement",
+          "kind": "doc"
+        },
+        {
+          "id": "regulatory_review_case",
+          "kind": "doc"
+        },
+        {
+          "id": "regulatory_filing",
+          "kind": "doc"
+        },
+        {
+          "id": "ecosystem_filing_record",
+          "kind": "doc"
+        },
+        {
+          "id": "government_report",
+          "kind": "doc"
+        },
+        {
+          "id": "license_record",
+          "kind": "doc"
+        },
+        {
+          "id": "report_submission",
+          "kind": "doc"
+        },
+        {
+          "id": "license_renewal_case",
+          "kind": "doc"
+        }
+      ],
+      "edges": [
+        {
+          "source_doc": "ecosystem_filing_record",
+          "target_doc": "filing_requirement",
+          "relation": "references"
+        },
+        {
+          "source_doc": "ecosystem_filing_record",
+          "target_doc": "regulatory_review_case",
+          "relation": "references"
+        },
+        {
+          "source_doc": "ecosystem_filing_record",
+          "target_doc": "regulatory_filing",
+          "relation": "references"
+        },
+        {
+          "source_doc": "ecosystem_filing_record",
+          "target_doc": "regulatory_review_case",
+          "relation": "create_record",
+          "action_id": "close"
+        },
+        {
+          "source_doc": "filing_requirement",
+          "target_doc": "ecosystem_filing_record",
+          "relation": "references"
+        },
+        {
+          "source_doc": "filing_requirement",
+          "target_doc": "government_report",
+          "relation": "references"
+        },
+        {
+          "source_doc": "filing_requirement",
+          "target_doc": "license_record",
+          "relation": "references"
+        },
+        {
+          "source_doc": "filing_requirement",
+          "target_doc": "ecosystem_filing_record",
+          "relation": "create_record",
+          "action_id": "activate"
+        },
+        {
+          "source_doc": "regulatory_review_case",
+          "target_doc": "ecosystem_filing_record",
+          "relation": "references"
+        },
+        {
+          "source_doc": "regulatory_review_case",
+          "target_doc": "report_submission",
+          "relation": "references"
+        },
+        {
+          "source_doc": "regulatory_review_case",
+          "target_doc": "license_renewal_case",
+          "relation": "references"
+        },
+        {
+          "source_doc": "regulatory_review_case",
+          "target_doc": "license_renewal_case",
+          "relation": "create_record",
+          "action_id": "close"
+        },
+        {
+          "source_doc": "regulatory_review_case",
+          "target_doc": "license_renewal_case",
+          "relation": "create_record",
+          "action_id": "assign"
+        }
+      ]
+    }
+  },
+  "contract_version": 1
 }

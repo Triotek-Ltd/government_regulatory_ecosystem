@@ -4,5 +4,521 @@
   "app_id": "government_regulatory_ecosystem",
   "type": "module",
   "status": "draft",
-  "supports_submodules": true
+  "supports_submodules": true,
+  "ui": {
+    "icon_key": "apps",
+    "accent": "#246f89",
+    "logo_image": null,
+    "cover_image": null
+  },
+  "dashboard": {
+    "version": 1,
+    "surface": "module",
+    "hero": {
+      "variant": "summary_strip",
+      "show_breadcrumb": true,
+      "show_title": true
+    },
+    "navigation": {
+      "primary_children": "docs",
+      "flatten_submodules_in_ui": true
+    },
+    "blocks": [
+      {
+        "id": "kpis",
+        "type": "kpi_cards",
+        "title": "Government Reporting KPIs",
+        "data_source": {
+          "kind": "db",
+          "entity_scope": "module",
+          "entity_id": "government_reporting",
+          "metric_family": "overview"
+        }
+      },
+      {
+        "id": "summaries",
+        "type": "summary_cards",
+        "title": "Government Reporting summaries",
+        "data_source": {
+          "kind": "db",
+          "entity_scope": "module",
+          "entity_id": "government_reporting",
+          "metric_family": "summary"
+        }
+      },
+      {
+        "id": "charts",
+        "type": "chart_group",
+        "title": "Government Reporting charts",
+        "data_source": {
+          "kind": "db",
+          "entity_scope": "module",
+          "entity_id": "government_reporting",
+          "metric_family": "trend"
+        },
+        "chart_specs": [
+          {
+            "id": "government_reporting_trend_line",
+            "label": "Government Reporting trend",
+            "chart_type": "line",
+            "series_role": "time_series",
+            "metric_family": "trend",
+            "x_field": "period",
+            "y_field": "value"
+          },
+          {
+            "id": "government_reporting_volume_column",
+            "label": "Government Reporting volume",
+            "chart_type": "column",
+            "series_role": "comparison",
+            "metric_family": "summary",
+            "x_field": "category",
+            "y_field": "count"
+          },
+          {
+            "id": "government_reporting_distribution_donut",
+            "label": "Government Reporting distribution",
+            "chart_type": "donut",
+            "series_role": "distribution",
+            "metric_family": "summary",
+            "segment_field": "category",
+            "value_field": "value"
+          },
+          {
+            "id": "government_report_trend_line",
+            "label": "Government Report trend",
+            "chart_type": "line",
+            "series_role": "time_series",
+            "metric_family": "trend",
+            "x_field": "period",
+            "y_field": "value"
+          },
+          {
+            "id": "government_report_volume_column",
+            "label": "Government Report volume",
+            "chart_type": "column",
+            "series_role": "comparison",
+            "metric_family": "summary",
+            "x_field": "category",
+            "y_field": "count"
+          },
+          {
+            "id": "government_report_distribution_donut",
+            "label": "Government Report distribution",
+            "chart_type": "donut",
+            "series_role": "distribution",
+            "metric_family": "summary",
+            "segment_field": "category",
+            "value_field": "value"
+          },
+          {
+            "id": "report_acknowledgement_trend_line",
+            "label": "Report Acknowledgement trend",
+            "chart_type": "line",
+            "series_role": "time_series",
+            "metric_family": "trend",
+            "x_field": "period",
+            "y_field": "value"
+          },
+          {
+            "id": "report_acknowledgement_volume_column",
+            "label": "Report Acknowledgement volume",
+            "chart_type": "column",
+            "series_role": "comparison",
+            "metric_family": "summary",
+            "x_field": "category",
+            "y_field": "count"
+          },
+          {
+            "id": "report_acknowledgement_distribution_donut",
+            "label": "Report Acknowledgement distribution",
+            "chart_type": "donut",
+            "series_role": "distribution",
+            "metric_family": "summary",
+            "segment_field": "category",
+            "value_field": "value"
+          },
+          {
+            "id": "report_submission_trend_line",
+            "label": "Report Submission trend",
+            "chart_type": "line",
+            "series_role": "time_series",
+            "metric_family": "trend",
+            "x_field": "period",
+            "y_field": "value"
+          },
+          {
+            "id": "report_submission_volume_column",
+            "label": "Report Submission volume",
+            "chart_type": "column",
+            "series_role": "comparison",
+            "metric_family": "summary",
+            "x_field": "category",
+            "y_field": "count"
+          },
+          {
+            "id": "report_submission_distribution_donut",
+            "label": "Report Submission distribution",
+            "chart_type": "donut",
+            "series_role": "distribution",
+            "metric_family": "summary",
+            "segment_field": "category",
+            "value_field": "value"
+          }
+        ]
+      },
+      {
+        "id": "reports",
+        "type": "report_links",
+        "title": "Government Reporting reports",
+        "data_source": {
+          "kind": "db",
+          "entity_scope": "module",
+          "entity_id": "government_reporting",
+          "metric_family": "reporting"
+        }
+      }
+    ]
+  },
+  "reporting": {
+    "supports_kpis": true,
+    "supports_summaries": true,
+    "supports_charts": true,
+    "supports_reports": true,
+    "default_time_grain": "month",
+    "default_comparison": "previous_period",
+    "default_currency_mode": "base_currency",
+    "metric_sources": [
+      {
+        "id": "overview",
+        "kind": "db",
+        "entity_scope": "module",
+        "entity_id": "government_reporting",
+        "metric_family": "overview"
+      },
+      {
+        "id": "summary",
+        "kind": "db",
+        "entity_scope": "module",
+        "entity_id": "government_reporting",
+        "metric_family": "summary"
+      },
+      {
+        "id": "trend",
+        "kind": "db",
+        "entity_scope": "module",
+        "entity_id": "government_reporting",
+        "metric_family": "trend"
+      },
+      {
+        "id": "reporting",
+        "kind": "db",
+        "entity_scope": "module",
+        "entity_id": "government_reporting",
+        "metric_family": "reporting"
+      }
+    ],
+    "report_registry": [
+      {
+        "id": "overview_report",
+        "label": "Government Reporting Overview",
+        "report_type": "dashboard_summary",
+        "surface": "module"
+      },
+      {
+        "id": "trend_report",
+        "label": "Government Reporting Trends",
+        "report_type": "trend_analysis",
+        "surface": "module"
+      },
+      {
+        "id": "summary_report",
+        "label": "Government Report Summary",
+        "report_type": "summary_report",
+        "surface": "doc"
+      },
+      {
+        "id": "detail_report",
+        "label": "Government Report Detail",
+        "report_type": "detail_report",
+        "surface": "doc"
+      }
+    ],
+    "chart_library": {
+      "renderer": "recharts",
+      "recommended_package": "recharts",
+      "source": "https://recharts.org/en-US"
+    },
+    "chart_registry": [
+      {
+        "id": "government_reporting_trend_line",
+        "label": "Government Reporting trend",
+        "chart_type": "line",
+        "series_role": "time_series",
+        "metric_family": "trend",
+        "x_field": "period",
+        "y_field": "value"
+      },
+      {
+        "id": "government_reporting_volume_column",
+        "label": "Government Reporting volume",
+        "chart_type": "column",
+        "series_role": "comparison",
+        "metric_family": "summary",
+        "x_field": "category",
+        "y_field": "count"
+      },
+      {
+        "id": "government_reporting_distribution_donut",
+        "label": "Government Reporting distribution",
+        "chart_type": "donut",
+        "series_role": "distribution",
+        "metric_family": "summary",
+        "segment_field": "category",
+        "value_field": "value"
+      },
+      {
+        "id": "government_report_trend_line",
+        "label": "Government Report trend",
+        "chart_type": "line",
+        "series_role": "time_series",
+        "metric_family": "trend",
+        "x_field": "period",
+        "y_field": "value"
+      },
+      {
+        "id": "government_report_volume_column",
+        "label": "Government Report volume",
+        "chart_type": "column",
+        "series_role": "comparison",
+        "metric_family": "summary",
+        "x_field": "category",
+        "y_field": "count"
+      },
+      {
+        "id": "government_report_distribution_donut",
+        "label": "Government Report distribution",
+        "chart_type": "donut",
+        "series_role": "distribution",
+        "metric_family": "summary",
+        "segment_field": "category",
+        "value_field": "value"
+      },
+      {
+        "id": "report_acknowledgement_trend_line",
+        "label": "Report Acknowledgement trend",
+        "chart_type": "line",
+        "series_role": "time_series",
+        "metric_family": "trend",
+        "x_field": "period",
+        "y_field": "value"
+      },
+      {
+        "id": "report_acknowledgement_volume_column",
+        "label": "Report Acknowledgement volume",
+        "chart_type": "column",
+        "series_role": "comparison",
+        "metric_family": "summary",
+        "x_field": "category",
+        "y_field": "count"
+      },
+      {
+        "id": "report_acknowledgement_distribution_donut",
+        "label": "Report Acknowledgement distribution",
+        "chart_type": "donut",
+        "series_role": "distribution",
+        "metric_family": "summary",
+        "segment_field": "category",
+        "value_field": "value"
+      },
+      {
+        "id": "report_submission_trend_line",
+        "label": "Report Submission trend",
+        "chart_type": "line",
+        "series_role": "time_series",
+        "metric_family": "trend",
+        "x_field": "period",
+        "y_field": "value"
+      },
+      {
+        "id": "report_submission_volume_column",
+        "label": "Report Submission volume",
+        "chart_type": "column",
+        "series_role": "comparison",
+        "metric_family": "summary",
+        "x_field": "category",
+        "y_field": "count"
+      },
+      {
+        "id": "report_submission_distribution_donut",
+        "label": "Report Submission distribution",
+        "chart_type": "donut",
+        "series_role": "distribution",
+        "metric_family": "summary",
+        "segment_field": "category",
+        "value_field": "value"
+      }
+    ],
+    "source_docs": [],
+    "source_fields": [],
+    "child_sources": [
+      {
+        "id": "government_report",
+        "title": "Government Report",
+        "surface": null,
+        "source_docs": []
+      },
+      {
+        "id": "report_acknowledgement",
+        "title": "Report Acknowledgement",
+        "surface": null,
+        "source_docs": []
+      },
+      {
+        "id": "report_submission",
+        "title": "Report Submission",
+        "surface": null,
+        "source_docs": []
+      }
+    ]
+  },
+  "flow": {
+    "related_docs": [
+      "report_submission",
+      "report_acknowledgement",
+      "filing_requirement",
+      "government_report",
+      "regulatory_review_case"
+    ],
+    "upstream_docs": [
+      "report_submission",
+      "report_acknowledgement",
+      "filing_requirement",
+      "government_report",
+      "regulatory_review_case"
+    ],
+    "downstream_docs": [],
+    "actors": [
+      "compliance officer",
+      "case owner"
+    ],
+    "downstream_effects": [],
+    "emits_records": [],
+    "handoff_targets": [
+      "report_submission",
+      "report_acknowledgement",
+      "filing_requirement",
+      "government_report",
+      "regulatory_review_case"
+    ],
+    "graph_edges": [
+      {
+        "source_doc": "government_report",
+        "target_doc": "report_submission",
+        "relation": "references"
+      },
+      {
+        "source_doc": "government_report",
+        "target_doc": "report_acknowledgement",
+        "relation": "references"
+      },
+      {
+        "source_doc": "government_report",
+        "target_doc": "filing_requirement",
+        "relation": "references"
+      },
+      {
+        "source_doc": "report_acknowledgement",
+        "target_doc": "report_submission",
+        "relation": "references"
+      },
+      {
+        "source_doc": "report_acknowledgement",
+        "target_doc": "government_report",
+        "relation": "references"
+      },
+      {
+        "source_doc": "report_submission",
+        "target_doc": "government_report",
+        "relation": "references"
+      },
+      {
+        "source_doc": "report_submission",
+        "target_doc": "report_acknowledgement",
+        "relation": "references"
+      },
+      {
+        "source_doc": "report_submission",
+        "target_doc": "regulatory_review_case",
+        "relation": "references"
+      }
+    ],
+    "operating_graph": {
+      "nodes": [
+        {
+          "id": "report_submission",
+          "kind": "doc"
+        },
+        {
+          "id": "report_acknowledgement",
+          "kind": "doc"
+        },
+        {
+          "id": "filing_requirement",
+          "kind": "doc"
+        },
+        {
+          "id": "government_report",
+          "kind": "doc"
+        },
+        {
+          "id": "regulatory_review_case",
+          "kind": "doc"
+        }
+      ],
+      "edges": [
+        {
+          "source_doc": "government_report",
+          "target_doc": "report_submission",
+          "relation": "references"
+        },
+        {
+          "source_doc": "government_report",
+          "target_doc": "report_acknowledgement",
+          "relation": "references"
+        },
+        {
+          "source_doc": "government_report",
+          "target_doc": "filing_requirement",
+          "relation": "references"
+        },
+        {
+          "source_doc": "report_acknowledgement",
+          "target_doc": "report_submission",
+          "relation": "references"
+        },
+        {
+          "source_doc": "report_acknowledgement",
+          "target_doc": "government_report",
+          "relation": "references"
+        },
+        {
+          "source_doc": "report_submission",
+          "target_doc": "government_report",
+          "relation": "references"
+        },
+        {
+          "source_doc": "report_submission",
+          "target_doc": "report_acknowledgement",
+          "relation": "references"
+        },
+        {
+          "source_doc": "report_submission",
+          "target_doc": "regulatory_review_case",
+          "relation": "references"
+        }
+      ]
+    }
+  },
+  "contract_version": 1
 }

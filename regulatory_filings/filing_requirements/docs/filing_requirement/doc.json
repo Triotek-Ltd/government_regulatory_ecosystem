@@ -10,7 +10,8 @@
   "doc_archetype": "configuration",
   "classification": {
     "archetype": "configuration",
-    "bundle": "ecosystem"
+    "bundle": "ecosystem",
+    "doc_kind": "configuration"
   },
   "planning_source": {
     "type": "reference_doc_generation_manifest",
@@ -23,5 +24,264 @@
       "obligation taxonomy",
       "cross-jurisdiction rule model"
     ]
+  },
+  "ui": {
+    "icon_key": "settings",
+    "accent": "#5c677d",
+    "logo_image": null,
+    "cover_image": null,
+    "preferred_views": [
+      "list",
+      "table",
+      "detail",
+      "report"
+    ],
+    "default_density": "comfortable"
+  },
+  "dashboard": {
+    "version": 1,
+    "surface": "doc",
+    "hero": {
+      "variant": "summary_strip",
+      "show_breadcrumb": true,
+      "show_title": true
+    },
+    "navigation": {
+      "primary_children": "records",
+      "flatten_submodules_in_ui": false,
+      "views": [
+        "list",
+        "table",
+        "detail",
+        "report"
+      ]
+    },
+    "blocks": [
+      {
+        "id": "kpis",
+        "type": "kpi_cards",
+        "title": "Filing Requirement KPIs",
+        "data_source": {
+          "kind": "db",
+          "entity_scope": "doc",
+          "entity_id": "filing_requirement",
+          "metric_family": "overview"
+        }
+      },
+      {
+        "id": "summaries",
+        "type": "summary_cards",
+        "title": "Filing Requirement summaries",
+        "data_source": {
+          "kind": "db",
+          "entity_scope": "doc",
+          "entity_id": "filing_requirement",
+          "metric_family": "summary"
+        }
+      },
+      {
+        "id": "charts",
+        "type": "chart_group",
+        "title": "Filing Requirement charts",
+        "data_source": {
+          "kind": "db",
+          "entity_scope": "doc",
+          "entity_id": "filing_requirement",
+          "metric_family": "trend"
+        }
+      },
+      {
+        "id": "reports",
+        "type": "report_links",
+        "title": "Filing Requirement reports",
+        "data_source": {
+          "kind": "db",
+          "entity_scope": "doc",
+          "entity_id": "filing_requirement",
+          "metric_family": "reporting"
+        }
+      },
+      {
+        "id": "records",
+        "type": "record_table",
+        "title": "Filing Requirement records",
+        "data_source": {
+          "kind": "db",
+          "entity_scope": "doc",
+          "entity_id": "filing_requirement",
+          "metric_family": "records"
+        }
+      }
+    ]
+  },
+  "reporting": {
+    "supports_kpis": true,
+    "supports_summaries": true,
+    "supports_charts": true,
+    "supports_reports": true,
+    "default_time_grain": "month",
+    "default_comparison": "previous_period",
+    "default_currency_mode": "base_currency",
+    "metric_sources": [
+      {
+        "id": "overview",
+        "kind": "db",
+        "entity_scope": "doc",
+        "entity_id": "filing_requirement",
+        "metric_family": "overview"
+      },
+      {
+        "id": "summary",
+        "kind": "db",
+        "entity_scope": "doc",
+        "entity_id": "filing_requirement",
+        "metric_family": "summary"
+      },
+      {
+        "id": "trend",
+        "kind": "db",
+        "entity_scope": "doc",
+        "entity_id": "filing_requirement",
+        "metric_family": "trend"
+      },
+      {
+        "id": "reporting",
+        "kind": "db",
+        "entity_scope": "doc",
+        "entity_id": "filing_requirement",
+        "metric_family": "reporting"
+      }
+    ],
+    "report_registry": [
+      {
+        "id": "overview_report",
+        "label": "Filing Requirement Overview",
+        "report_type": "dashboard_summary",
+        "surface": "doc"
+      },
+      {
+        "id": "trend_report",
+        "label": "Filing Requirement Trends",
+        "report_type": "trend_analysis",
+        "surface": "doc"
+      },
+      {
+        "id": "summary_report",
+        "label": "Filing Requirement Summary",
+        "report_type": "summary_report",
+        "surface": "doc"
+      },
+      {
+        "id": "detail_report",
+        "label": "Filing Requirement Detail",
+        "report_type": "detail_report",
+        "surface": "doc"
+      }
+    ],
+    "supports_outputs": false,
+    "supports_print_formats": true,
+    "default_views": [
+      "summary",
+      "trend",
+      "report_table"
+    ],
+    "chart_library": {
+      "renderer": "recharts",
+      "recommended_package": "recharts",
+      "source": "https://recharts.org/en-US"
+    },
+    "chart_registry": [
+      {
+        "id": "filing_requirement_trend_line",
+        "label": "Filing Requirement trend",
+        "chart_type": "line",
+        "series_role": "time_series",
+        "metric_family": "trend",
+        "x_field": "period",
+        "y_field": "value"
+      },
+      {
+        "id": "filing_requirement_volume_column",
+        "label": "Filing Requirement volume",
+        "chart_type": "column",
+        "series_role": "comparison",
+        "metric_family": "summary",
+        "x_field": "category",
+        "y_field": "count"
+      },
+      {
+        "id": "filing_requirement_distribution_donut",
+        "label": "Filing Requirement distribution",
+        "chart_type": "donut",
+        "series_role": "distribution",
+        "metric_family": "summary",
+        "segment_field": "category",
+        "value_field": "value"
+      }
+    ]
+  },
+  "flow": {
+    "related_docs": [
+      "ecosystem_filing_record",
+      "government_report",
+      "license_record",
+      "retention_policy"
+    ],
+    "upstream_docs": [
+      "ecosystem_filing_record",
+      "government_report",
+      "license_record"
+    ],
+    "downstream_docs": [
+      "ecosystem_filing_record"
+    ],
+    "borrowed_fields": [],
+    "emits_records": [
+      {
+        "action_id": "activate",
+        "target_doc": "ecosystem_filing_record",
+        "effect_type": "create_record"
+      }
+    ],
+    "downstream_effects": [],
+    "actors": [
+      "compliance officer"
+    ],
+    "handoff_targets": [
+      "ecosystem_filing_record",
+      "government_report",
+      "license_record"
+    ],
+    "graph_edges": [
+      {
+        "source_doc": "filing_requirement",
+        "target_doc": "ecosystem_filing_record",
+        "relation": "references"
+      },
+      {
+        "source_doc": "filing_requirement",
+        "target_doc": "government_report",
+        "relation": "references"
+      },
+      {
+        "source_doc": "filing_requirement",
+        "target_doc": "license_record",
+        "relation": "references"
+      },
+      {
+        "source_doc": "filing_requirement",
+        "target_doc": "ecosystem_filing_record",
+        "relation": "create_record",
+        "action_id": "activate"
+      }
+    ]
+  },
+  "contract_version": 1,
+  "records_profile": {
+    "record_class": "business_record",
+    "legal_significance": "standard",
+    "confidentiality": "internal",
+    "official_copy_format": "pdf",
+    "evidence_gaps": []
   }
 }

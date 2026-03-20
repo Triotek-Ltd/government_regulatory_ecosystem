@@ -6,10 +6,10 @@ from core.services.relation_resolution import RelationResolutionService
 
 
 DOC_ID = "registration_application"
-RELATED_DOCS = [{'doc_id': 'license_record', 'relation_type': 'related', 'show_in_related_panel': True}, {'doc_id': 'license_renewal_case', 'relation_type': 'related', 'show_in_related_panel': True}]
-FETCH_RULES = []
+RELATED_DOCS = [{'doc_id': 'license_record', 'relation_type': 'related', 'show_in_related_panel': True}, {'doc_id': 'license_renewal_case', 'relation_type': 'related', 'show_in_related_panel': True}, {'doc_id': 'party_record', 'relation_type': 'related', 'show_in_related_panel': True}]
+FETCH_RULES = [{'source_field': 'party', 'doc_id': 'party_record', 'mode': 'context'}]
 
-BORROWED_FIELDS = [{'description': 'authority'}, {'description': 'target license type from license_record or requirement config'}]
+BORROWED_FIELDS = [{'description': 'authority'}, {'description': 'target license type from license_record or requirement config'}, {'field_id': 'party', 'doc_id': 'party_record', 'description': 'Borrow context from party_record through party.'}]
 
 class RelationService:
     def _bridge(self, context: dict | None = None) -> RelationResolutionService | None:

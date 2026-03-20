@@ -4,7 +4,7 @@ from __future__ import annotations
 
 
 DOC_ID = "registration_application"
-INTEGRATION_RULES = {'external_refs': [], 'sync_rules': []}
+INTEGRATION_RULES = {'external_refs': [{'field_id': 'external_reference', 'kind': 'external', 'label': 'External Reference'}], 'sync_rules': []}
 
 class IntegrationService:
     def sync_rules(self) -> list:

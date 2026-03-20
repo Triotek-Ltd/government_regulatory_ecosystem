@@ -6,10 +6,10 @@ from core.services.relation_resolution import RelationResolutionService
 
 
 DOC_ID = "report_submission"
-RELATED_DOCS = [{'doc_id': 'government_report', 'relation_type': 'related', 'show_in_related_panel': True}, {'doc_id': 'report_acknowledgement', 'relation_type': 'related', 'show_in_related_panel': True}, {'doc_id': 'regulatory_review_case', 'relation_type': 'related', 'show_in_related_panel': True}]
-FETCH_RULES = []
+RELATED_DOCS = [{'doc_id': 'government_report', 'relation_type': 'related', 'show_in_related_panel': True}, {'doc_id': 'report_acknowledgement', 'relation_type': 'related', 'show_in_related_panel': True}, {'doc_id': 'regulatory_review_case', 'relation_type': 'related', 'show_in_related_panel': True}, {'doc_id': 'party_record', 'relation_type': 'related', 'show_in_related_panel': True}]
+FETCH_RULES = [{'source_field': 'party', 'doc_id': 'party_record', 'mode': 'context'}]
 
-BORROWED_FIELDS = [{'description': 'report scope'}, {'description': 'authority from government_report'}]
+BORROWED_FIELDS = [{'description': 'report scope'}, {'description': 'authority from government_report'}, {'field_id': 'party', 'doc_id': 'party_record', 'description': 'Borrow context from party_record through party.'}]
 
 class RelationService:
     def _bridge(self, context: dict | None = None) -> RelationResolutionService | None:
